@@ -8,7 +8,7 @@ import {
   Phone,
   BadgeIndianRupee,
 } from "lucide-react";
-import { dashboardStyles } from "../assets/dummyStyles";
+import { dashboardStyles } from "../../assets/dummyStyles";
 
 const API_BASE = "http://localhost:4000";
 

@@ -1,3 +1,16 @@
+import React, { useState, useEffect, useMemo } from "react";
+import {
+  Users,
+  Calendar,
+  CheckCircle,
+  XCircle,
+  BadgeIndianRupee,
+  Search,
+  Activity,
+  HeartHandshake,
+} from "lucide-react";
+import { dashboardStyles as s } from "../../assets/dummyStyles";
+
 const safeNumber = (v, fallback = 0) => {
   const n = Number(v);
   return Number.isFinite(n) ? n : fallback;
@@ -9,7 +22,7 @@ function normalizeDoctor(doc) {
     doc.name ||
     doc.fullName ||
     `${doc.firstName || ""} ${doc.lastName || ""}`.trim() ||
-    "Unknown";
+    "Unknown Doctor";
   const specialization =
     doc.specialization ||
     doc.speciality ||
@@ -25,7 +38,7 @@ function normalizeDoctor(doc) {
     doc.imageUrl ||
     doc.image ||
     doc.avatar ||
-    `https://i.pravatar.cc/150?u=${id}`;
+    `https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80`;
 
   const appointments = {
     total:
@@ -66,6 +79,14 @@ function normalizeDoctor(doc) {
   };
 }
 
+export default function DashboardPage() {
+  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+  const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [query, setQuery] = useState("");
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -107,37 +128,7 @@ function normalizeDoctor(doc) {
     return () => {
       mounted = false;
     };
-  }, []);
-
-  useEffect(() => {
-    let mounted = true;
-    async function loadPatientCount() {
-      setPatientCountLoading(true);
-      try {
-        const res = await fetch(PATIENT_COUNT_API);
-        if (!res.ok) {
-          console.warn("Patient count fetch failed:", res.status);
-          if (mounted) setPatientCount(0);
-          return;
-        }
-
-        const body = await res.json().catch(() => ({}));
-        const count = Number(
-          body?.count ?? body?.totalUsers ?? body?.data ?? 0
-        );
-        if (mounted) setPatientCount(isNaN(count) ? 0 : count);
-      } catch (err) {
-        console.error("Failed to fetch patient count:", err);
-        if (mounted) setPatientCount(0);
-      } finally {
-        if (mounted) setPatientCountLoading(false);
-      }
-    }
-    loadPatientCount();
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  }, [API_BASE]);
 
   const totals = useMemo(() => {
     const totalDoctors = doctors.length;
@@ -157,15 +148,12 @@ function normalizeDoctor(doc) {
       (s, d) => s + safeNumber(d.appointments?.canceled, 0),
       0
     );
-    const totalLoginPatients =
-      doctors.reduce((s, d) => s + (d.raw?.loginPatientsCount ?? 0), 0) || 0;
     return {
       totalDoctors,
       totalAppointments,
       totalEarnings,
       completed,
       canceled,
-      totalLoginPatients,
     };
   }, [doctors]);
 
@@ -186,68 +174,253 @@ function normalizeDoctor(doc) {
   const visibleDoctors = showAll
     ? filteredDoctors
     : filteredDoctors.slice(0, INITIAL_COUNT);
-    
 
-              <thead className={s.tableHead}>
-                <tr>
-                  <th className={s.tableHeaderCell}>Doctor</th>
-                  <th className={s.tableHeaderCell}>Specialization</th>
-                  <th className={s.tableHeaderCell}>Fee</th>
-                  <th className={s.tableHeaderCell}>Appointments</th>
-                  <th className={s.tableHeaderCell}>Completed</th>
-                  <th className={s.tableHeaderCell}>Canceled</th>
-                  <th className={s.tableHeaderCell}>Total Earnings</th>
-                </tr>
-              </thead>
+  return (
+    <div className={s.pageContainer}>
+      <div className={s.maxWidthContainer}>
+        {/* Header */}
+        <div className={s.headerContainer}>
+          <div>
+            <h1 className={s.headerTitle}>Hospital Executive Overview</h1>
+            <p className={s.headerSubtitle}>
+              Live analytics across doctors, appointments, and earnings backed by PostgreSQL.
+            </p>
+          </div>
+        </div>
 
-              <tbody className={s.tableBody}>
-                {visibleDoctors.map((d, idx) => (
-                  <tr
-                    key={d.id}
-                    className={s.tableRow + " " + 
-                      (idx % 2 === 0 ? s.tableRowEven : s.tableRowOdd)}
-                  >
-                    <td className={s.tableCell + " " + s.tableCellFlex}>
-                      <div className={s.verticalLine} />
+        {/* Stats Grid */}
+        <div className={s.statsGrid}>
+          <div className={s.statCard}>
+            <div className={s.statCardContent}>
+              <div className={s.statIconContainer}>
+                <Users className="w-6 h-6 text-emerald-600" />
+              </div>
+              <div>
+                <p className={s.statLabel}>Total Doctors</p>
+                <p className={s.statValue}>{totals.totalDoctors}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className={s.statCard}>
+            <div className={s.statCardContent}>
+              <div className={s.statIconContainer}>
+                <Calendar className="w-6 h-6 text-emerald-600" />
+              </div>
+              <div>
+                <p className={s.statLabel}>Appointments</p>
+                <p className={s.statValue}>{totals.totalAppointments}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className={s.statCard}>
+            <div className={s.statCardContent}>
+              <div className={s.statIconContainer}>
+                <CheckCircle className="w-6 h-6 text-emerald-600" />
+              </div>
+              <div>
+                <p className={s.statLabel}>Completed</p>
+                <p className={s.statValue}>{totals.completed}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className={s.statCard}>
+            <div className={s.statCardContent}>
+              <div className={s.statIconContainer}>
+                <XCircle className="w-6 h-6 text-rose-500" />
+              </div>
+              <div>
+                <p className={s.statLabel}>Canceled</p>
+                <p className={s.statValue}>{totals.canceled}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className={s.statCard}>
+            <div className={s.statCardContent}>
+              <div className={s.statIconContainer}>
+                <BadgeIndianRupee className="w-6 h-6 text-emerald-600" />
+              </div>
+              <div>
+                <p className={s.statLabel}>Total Earnings</p>
+                <p className={s.statValue}>₹ {totals.totalEarnings.toLocaleString()}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Search */}
+        <div className="mb-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          <div className={s.searchContainer}>
+            <div className={s.searchInputContainer}>
+              <Search className={s.searchIcon} />
+              <input
+                type="text"
+                placeholder="Search doctor or specialty..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className={s.searchInput}
+              />
+            </div>
+            {query && (
+              <button
+                onClick={() => setQuery("")}
+                className={s.clearButton}
+              >
+                Clear
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Doctors Table */}
+        <div className={s.tableContainer}>
+          <div className={s.tableHeader}>
+            <h2 className={s.tableTitle}>Registered Doctors & Performance</h2>
+            <span className={s.tableCount}>
+              Showing {visibleDoctors.length} of {filteredDoctors.length} doctors
+            </span>
+          </div>
+
+          {error && <div className={s.errorContainer}>{error}</div>}
+
+          {loading ? (
+            <div className="text-center py-12 text-emerald-600 font-medium">
+              Loading analytics from PostgreSQL...
+            </div>
+          ) : (
+            <div className={s.tableWrapper}>
+              <table className={s.table}>
+                <thead className={s.tableHead}>
+                  <tr>
+                    <th className={s.tableHeaderCell}>Doctor</th>
+                    <th className={s.tableHeaderCell}>Specialization</th>
+                    <th className={s.tableHeaderCell}>Fee</th>
+                    <th className={s.tableHeaderCell}>Appointments</th>
+                    <th className={s.tableHeaderCell}>Completed</th>
+                    <th className={s.tableHeaderCell}>Canceled</th>
+                    <th className={s.tableHeaderCell}>Total Earnings</th>
+                  </tr>
+                </thead>
+
+                <tbody className={s.tableBody}>
+                  {visibleDoctors.map((d, idx) => (
+                    <tr
+                      key={d.id}
+                      className={
+                        s.tableRow +
+                        " " +
+                        (idx % 2 === 0 ? s.tableRowEven : s.tableRowOdd)
+                      }
+                    >
+                      <td className={s.tableCell + " " + s.tableCellFlex}>
+                        <div className={s.verticalLine} />
+                        <img
+                          src={d.image}
+                          alt={d.name}
+                          className={s.doctorImage}
+                          onError={(e) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src =
+                              "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80";
+                          }}
+                        />
+                        <div>
+                          <div className={s.doctorName}>{d.name}</div>
+                          <div className={s.doctorId}>ID: {d.id}</div>
+                        </div>
+                      </td>
+
+                      <td className={s.tableCell + " " + s.doctorSpecialization}>
+                        {d.specialization}
+                      </td>
+
+                      <td className={s.tableCell + " " + s.feeText}>
+                        ₹ {d.fee}
+                      </td>
+
+                      <td className={s.tableCell + " " + s.appointmentsText}>
+                        {d.appointments.total}
+                      </td>
+
+                      <td className={s.tableCell + " " + s.completedText}>
+                        {d.appointments.completed}
+                      </td>
+
+                      <td className={s.tableCell + " " + s.canceledText}>
+                        {d.appointments.canceled}
+                      </td>
+
+                      <td className={s.tableCell + " " + s.earningsText}>
+                        ₹ {d.earnings.toLocaleString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* Mobile Doctor Cards */}
+          <div className={s.mobileDoctorContainer}>
+            <div className={s.mobileDoctorGrid}>
+              {visibleDoctors.map((d) => (
+                <div key={d.id} className={s.mobileDoctorCard}>
+                  <div className={s.mobileDoctorHeader}>
+                    <div className="flex items-center gap-3">
                       <img
                         src={d.image}
                         alt={d.name}
-                        className={s.doctorImage}
+                        className={s.mobileDoctorImage}
                       />
                       <div>
-                        <div className={s.doctorName}>
-                          {d.name}
-                        </div>
-                        <div className={s.doctorId}>
-                          ID: {d.id}
-                        </div>
+                        <h4 className={s.mobileDoctorName}>{d.name}</h4>
+                        <p className={s.mobileDoctorSpecialization}>
+                          {d.specialization}
+                        </p>
                       </div>
-                    </td>
+                    </div>
+                    <span className={s.mobileDoctorFee}>₹ {d.fee}</span>
+                  </div>
 
-                    <td className={s.tableCell + " " + s.doctorSpecialization}>
-                      {d.specialization}
-                    </td>
+                  <div className={s.mobileStatsGrid}>
+                    <div>
+                      <p className={s.mobileStatLabel}>Appointments</p>
+                      <p className={s.mobileStatValue}>{d.appointments.total}</p>
+                    </div>
+                    <div>
+                      <p className={s.mobileStatLabel}>Completed</p>
+                      <p className={s.mobileStatValue}>{d.appointments.completed}</p>
+                    </div>
+                    <div>
+                      <p className={s.mobileStatLabel}>Canceled</p>
+                      <p className={s.mobileStatValue}>{d.appointments.canceled}</p>
+                    </div>
+                  </div>
 
-                    <td className={s.tableCell + " " + s.feeText}>
-                      ₹ {d.fee}
-                    </td>
+                  <div className={s.mobileEarningsContainer}>
+                    <span className="font-semibold text-emerald-800">Earnings:</span>
+                    <span className="font-bold text-emerald-700">₹ {d.earnings.toLocaleString()}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-                    <td className={s.tableCell + " " + s.appointmentsText}>
-                      {d.appointments.total}
-                    </td>
-
-                    <td className={s.tableCell + " " + s.completedText}>
-                      {d.appointments.completed}
-                    </td>
-
-                    <td className={s.tableCell + " " + s.canceledText}>
-                      {d.appointments.canceled}
-                    </td>
-
-                    <td className={s.tableCell + " " + s.earningsText}>
-                      ₹ {d.earnings.toLocaleString()}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-        
+          {filteredDoctors.length > INITIAL_COUNT && (
+            <div className={s.showMoreContainer}>
+              <button
+                onClick={() => setShowAll(!showAll)}
+                className={s.showMoreButton}
+              >
+                {showAll ? "Show Less" : `View All Doctors (${filteredDoctors.length})`}
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

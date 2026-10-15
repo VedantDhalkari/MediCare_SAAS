@@ -1,3 +1,18 @@
+import React, { useState, useEffect, useMemo } from "react";
+import {
+  Calendar,
+  Search,
+  BadgeIndianRupee,
+  Clock,
+  User,
+  Filter,
+} from "lucide-react";
+import {
+  pageStyles,
+  statusClasses,
+  keyframesStyles,
+} from "../../assets/dummyStyles";
+
 function formatDateISO(iso) {
   try {
     const d = new Date(iso + "T00:00:00");
@@ -13,21 +28,23 @@ function formatDateISO(iso) {
 
 function dateTimeFromSlot(slot) {
   try {
+    if (!slot || !slot.date) return new Date();
     const [y, m, d] = slot.date.split("-");
     const base = new Date(Number(y), Number(m) - 1, Number(d), 0, 0, 0, 0);
 
-    const [time, ampm] = slot.time.split(" ");
-    let [hh, mm] = time.split(":").map(Number);
+    const [time, ampm] = (slot.time || "00:00 AM").split(" ");
+    let [hh, mm] = (time || "00:00").split(":").map(Number);
     if (ampm === "PM" && hh !== 12) hh += 12;
     if (ampm === "AM" && hh === 12) hh = 0;
     base.setHours(hh, mm, 0, 0);
     return base;
   } catch (e) {
-    return new Date(slot.date + "T00:00:00");
+    return new Date();
   }
 }
 
 export default function AppointmentsPage() {
+  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
   const isAdmin = true;
 
   const [appointments, setAppointments] = useState([]);
@@ -77,7 +94,7 @@ export default function AppointmentsPage() {
               time: a.time || (a.slot && a.slot.time) || "00:00 AM",
             },
             status: a.status || (a.payment && a.payment.status) || "Pending",
-            raw: a, // keep original in case we need it
+            raw: a,
           };
         });
         setAppointments(items);
@@ -89,7 +106,7 @@ export default function AppointmentsPage() {
       }
     }
     load();
-  }, []);
+  }, [API_BASE]);
 
   const specialities = useMemo(() => {
     const set = new Set(appointments.map((a) => a.speciality || "General"));
@@ -150,7 +167,6 @@ export default function AppointmentsPage() {
       setAppointments((prev) =>
         prev.map((p) => (p.id === id ? { ...p, status: "Canceled" } : p))
       );
-      setShowAll(true);
 
       const res = await fetch(`${API_BASE}/api/appointments/${id}/cancel`, {
         method: "POST",
@@ -182,36 +198,96 @@ export default function AppointmentsPage() {
     } catch (err) {
       console.error("Cancel error:", err);
       setError(err.message || "Failed to cancel appointment");
-      try {
-        const reload = await fetch(`${API_BASE}/api/appointments?limit=200`);
-        if (reload.ok) {
-          const body = await reload.json();
-          const items = (body?.appointments || []).map((a) => ({
-            id: a._id || a.id,
-            patientName: a.patientName || "",
-            age: a.age || "",
-            gender: a.gender || "",
-            mobile: a.mobile || "",
-            doctorName: (a.doctorId && a.doctorId.name) || a.doctorName || "",
-            speciality:
-              (a.doctorId && a.doctorId.specialization) ||
-              a.speciality ||
-              a.specialization ||
-              "General",
-            fee: typeof a.fees === "number" ? a.fees : a.fee || 0,
-            slot: {
-              date: a.date || (a.slot && a.slot.date) || "",
-              time: a.time || (a.slot && a.slot.time) || "00:00 AM",
-            },
-            status: a.status || (a.payment && a.payment.status) || "Pending",
-            raw: a,
-          }));
-          setAppointments(items);
-        }
-      } catch (e) {
-      }
     }
   }
+
+  return (
+    <div className={pageStyles.container}>
+      <style>{keyframesStyles}</style>
+      <div className={pageStyles.maxWidthContainer}>
+        {/* Header section */}
+        <div className={pageStyles.headerContainer}>
+          <div className={pageStyles.headerTitleSection}>
+            <h1 className={pageStyles.headerTitle}>All Patient Appointments</h1>
+            <p className={pageStyles.headerSubtitle}>
+              Monitor scheduled consultations, update cancellations, and track patient bookings in PostgreSQL.
+            </p>
+          </div>
+
+          <div className={pageStyles.headerControlsSection}>
+            <div className={pageStyles.filterContainer}>
+              <div className={pageStyles.searchContainer}>
+                <Search size={16} className={pageStyles.searchIcon} />
+                <input
+                  type="text"
+                  placeholder="Search patient, doctor, speciality..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className={pageStyles.searchInput}
+                />
+              </div>
+
+              <div className={pageStyles.dateFilter}>
+                <Calendar size={16} className={pageStyles.dateFilterIcon} />
+                <input
+                  type="date"
+                  value={filterDate}
+                  onChange={(e) => setFilterDate(e.target.value)}
+                  className={pageStyles.dateInput}
+                />
+              </div>
+
+              <select
+                value={filterSpeciality}
+                onChange={(e) => setFilterSpeciality(e.target.value)}
+                className={pageStyles.selectFilter}
+              >
+                {specialities.map((s) => (
+                  <option key={s} value={s}>
+                    {s === "all" ? "All Specialties" : s}
+                  </option>
+                ))}
+              </select>
+
+              {(query || filterDate || filterSpeciality !== "all") && (
+                <button
+                  onClick={() => {
+                    setQuery("");
+                    setFilterDate("");
+                    setFilterSpeciality("all");
+                  }}
+                  className={pageStyles.clearButton}
+                >
+                  Clear Filters
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Content list */}
+        {loading ? (
+          <div className={pageStyles.loadingErrorContainer}>
+            Loading appointments from PostgreSQL database...
+          </div>
+        ) : error ? (
+          <div className={pageStyles.errorContainer}>
+            {error}
+          </div>
+        ) : displayed.length === 0 ? (
+          <div className={pageStyles.noResultsContainer}>
+            No doctor appointments found matching your filter criteria.
+          </div>
+        ) : (
+          <div className={pageStyles.gridContainer}>
+            {displayed.map((a, idx) => {
+              const statusLower = (a.status || "").toLowerCase();
+              const isCancelled =
+                statusLower === "canceled" || statusLower === "cancelled";
+              const isCompleted = statusLower === "completed";
+              const isDisabled = isCancelled || isCompleted;
+
+              return (
                 <div
                   key={a.id}
                   style={{
@@ -230,10 +306,10 @@ export default function AppointmentsPage() {
 
                         <div className={pageStyles.patientInfo}>
                           <span>{a.age ? `${a.age} yrs` : ""}</span>
-                          <span> {a.age ? ":" : ""} </span>
+                          <span>{a.age ? ":" : ""}</span>
                           <span>{a.gender}</span>
-                          <span className="hidden md:inline"> : </span>
-                          <span className=" max-w-[120px]">{a.mobile}</span>
+                          <span className="hidden md:inline">:</span>
+                          <span>{a.mobile}</span>
                         </div>
                       </div>
 
@@ -246,9 +322,7 @@ export default function AppointmentsPage() {
                     </div>
 
                     <div className="text-right">
-                      <div className={pageStyles.feeLabel}>
-                        Fees
-                      </div>
+                      <div className={pageStyles.feeLabel}>Fees</div>
                       <div className={pageStyles.feeAmount}>
                         <BadgeIndianRupee size={16} />
                         <span>{a.fee}</span>
@@ -265,7 +339,9 @@ export default function AppointmentsPage() {
                     </div>
 
                     <div
-                      className={`${pageStyles.statusBadge} ${statusClasses(a.status)}`}
+                      className={`${pageStyles.statusBadge} ${statusClasses(
+                        a.status
+                      )}`}
                     >
                       {a.status ? a.status.toUpperCase() : "PENDING"}
                     </div>
@@ -283,7 +359,10 @@ export default function AppointmentsPage() {
                           }
                           disabled={isDisabled}
                           aria-disabled={isDisabled}
-                          className={pageStyles.cancelButton(isDisabled, isCompleted)}
+                          className={pageStyles.cancelButton(
+                            isDisabled,
+                            isCompleted
+                          )}
                         >
                           {isDisabled
                             ? isCompleted
@@ -295,3 +374,24 @@ export default function AppointmentsPage() {
                     </div>
                   </div>
                 </div>
+              );
+            })}
+          </div>
+        )}
+
+        {sortedFiltered.length > 8 && (
+          <div className="col-span-full flex justify-center mt-6">
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className={pageStyles.showMoreButton}
+            >
+              {showAll
+                ? "Show Less"
+                : `View All Appointments (${sortedFiltered.length})`}
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

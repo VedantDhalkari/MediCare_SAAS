@@ -20,7 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 // Clerk client hooks
 import { useAuth, useUser } from "@clerk/clerk-react";
-import { doctorDetailStyles } from "../assets/dummyStyles";
+import { doctorDetailStyles } from "../../assets/dummyStyles";
 
 const API_BASE = "http://localhost:4000";
 

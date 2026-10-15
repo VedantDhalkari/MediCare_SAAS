@@ -1,3 +1,21 @@
+import React, { useState, useEffect, useMemo } from "react";
+import {
+  Calendar,
+  Clock,
+  Search,
+  CheckCircle,
+  AlertCircle,
+  X,
+  MapPin,
+  Phone,
+  User,
+  Filter,
+  BadgeIndianRupee,
+} from "lucide-react";
+import { serviceAppointmentsStyles } from "../../assets/dummyStyles";
+
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 function formatTwo(n) {
   return String(n).padStart(2, "0");
 }
@@ -574,6 +592,41 @@ export default function ServiceAppointmentsPage() {
     return copy;
   }, [filtered]);
 
+  return (
+    <div className={serviceAppointmentsStyles.container}>
+      {/* Header */}
+      <div className={serviceAppointmentsStyles.headerContainer}>
+        <div className={serviceAppointmentsStyles.headerTitleContainer}>
+          <h1 className={serviceAppointmentsStyles.headerTitle}>Diagnostic Service Appointments</h1>
+          <p className={serviceAppointmentsStyles.headerSubtitle}>
+            Manage patient health checkup bookings, slot rescheduling, and visit cancellations (PostgreSQL).
+          </p>
+        </div>
+
+        <div className={serviceAppointmentsStyles.searchContainer}>
+          <div className={serviceAppointmentsStyles.searchInputWrapper}>
+            <div className={serviceAppointmentsStyles.searchLabel}>
+              <div className={serviceAppointmentsStyles.searchIconContainer}>
+                <Search className={serviceAppointmentsStyles.searchIcon} />
+              </div>
+              <input
+                type="text"
+                placeholder="Search patient, mobile, or service..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className={serviceAppointmentsStyles.searchInput}
+              />
+              {search && (
+                <button
+                  type="button"
+                  onClick={() => setSearch("")}
+                  className={serviceAppointmentsStyles.clearSearchButton}
+                >
+                  <X className={serviceAppointmentsStyles.clearSearchIcon} />
+                </button>
+              )}
+            </div>
+
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
@@ -587,8 +640,29 @@ export default function ServiceAppointmentsPage() {
               <option value="Completed">Completed</option>
               <option value="Canceled">Canceled</option>
             </select>
+          </div>
+        </div>
+      </div>
 
- <div className={serviceAppointmentsStyles.cardInner}>
+      {loading ? (
+        <div className={serviceAppointmentsStyles.loadingContainer}>
+          Loading service appointments from PostgreSQL...
+        </div>
+      ) : error ? (
+        <div className={serviceAppointmentsStyles.errorContainer}>{error}</div>
+      ) : displayList.length === 0 ? (
+        <div className={serviceAppointmentsStyles.noResultsContainer}>
+          <div className={serviceAppointmentsStyles.noResultsIcon}>📅</div>
+          <p className={serviceAppointmentsStyles.noResultsText}>No service appointments found</p>
+          <p className={serviceAppointmentsStyles.noResultsSubtext}>Try adjusting your search or status filter.</p>
+        </div>
+      ) : (
+        <div className={serviceAppointmentsStyles.gridContainer}>
+          {displayList.map((a) => {
+            const isLocked = a.status === "Canceled" || a.status === "Completed";
+            return (
+              <article key={a.id} className={serviceAppointmentsStyles.article}>
+                <div className={serviceAppointmentsStyles.cardInner}>
                     <div>
                       <div className={serviceAppointmentsStyles.cardHeader}>
                         <div className={serviceAppointmentsStyles.patientInfoContainer}>
@@ -683,3 +757,11 @@ export default function ServiceAppointmentsPage() {
                       </div>
                     </div>
                   </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
+      </div>
+  );
+}

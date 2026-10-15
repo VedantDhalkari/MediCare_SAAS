@@ -20,7 +20,7 @@ import {
   AlertCircle,
   BadgeIndianRupee,
 } from "lucide-react";
-import { editProfilePageStyles, iconSize } from "../assets/dummyStyles";
+import { editProfilePageStyles, iconSize } from "../../assets/dummyStyles";
 
 const STORAGE_KEY = "doctorToken_v1";
 
