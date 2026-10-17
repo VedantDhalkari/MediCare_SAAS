@@ -25,7 +25,9 @@ function formatDateISO(iso) {
 }
 
 export default function AddPage() {
-  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_BASE = (import.meta.env.VITE_API_URL !== undefined && import.meta.env.VITE_API_URL !== "")
+    ? import.meta.env.VITE_API_URL
+    : (window.location.port === "5174" ? "http://localhost:5000" : "");
 
   const [doctorList, setDoctorList] = useState([]);
   const fileInputRef = useRef(null);
@@ -262,7 +264,7 @@ export default function AddPage() {
       setShowPassword(false);
     } catch (err) {
       console.error("submit error:", err);
-      showToast("error", "Network or server error");
+      showToast("error", err?.message ? `Connection error: ${err.message}` : "Network or server error");
     } finally {
       setLoading(false);
     }

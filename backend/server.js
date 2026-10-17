@@ -22,7 +22,16 @@ app.get('/', (req, res) => res.json({ status: 'ok', message: 'MediCare PostgreSQ
 
 const PORT = process.env.PORT || 5000;
 
-sequelize.sync({ alter: true }).then(() => {
+sequelize.sync({ alter: true }).then(async () => {
   console.log('✓ PostgreSQL connected & tables synced');
+  try {
+    const docCount = await sequelize.models.Doctor.count();
+    if (docCount < 2) {
+      console.log('ℹ Bootstrapping mock data for demonstration...');
+      require('./seed');
+    }
+  } catch (seedErr) {
+    console.error('Seed check warning:', seedErr.message);
+  }
   app.listen(PORT, () => console.log(`✓ Server running on port ${PORT}`));
 }).catch(err => console.error('✗ DB error:', err));
