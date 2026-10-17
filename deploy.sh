@@ -42,6 +42,10 @@ sudo docker compose down --remove-orphans || true
 sudo docker compose build --no-cache
 sudo docker compose up -d
 
+echo "Seeding database with doctors, services, and appointment history..."
+sleep 4
+sudo docker compose exec -T backend node seed.js || true
+
 echo ""
 echo "=========================================================="
 echo " ✓ MediCare SAAS Deployed Successfully! "

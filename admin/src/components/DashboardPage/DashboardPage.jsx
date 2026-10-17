@@ -10,6 +10,7 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import { dashboardStyles as s } from "../../assets/dummyStyles";
+import { API_BASE } from "../../apiConfig";
 
 const safeNumber = (v, fallback = 0) => {
   const n = Number(v);
@@ -80,8 +81,6 @@ function normalizeDoctor(doc) {
 }
 
 export default function DashboardPage() {
-  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

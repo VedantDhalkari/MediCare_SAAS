@@ -207,7 +207,7 @@ router.post('/', upload.single('image'), async (req, res) => {
 
     let imageUrl = body.imageUrl || null;
     if (req.file) {
-      imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+      imageUrl = `/uploads/${req.file.filename}`;
     }
 
     const schedule = parseScheduleInput(body.schedule);
@@ -251,7 +251,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
 
     let imageUrl = doctor.imageUrl;
     if (req.file) {
-      imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+      imageUrl = `/uploads/${req.file.filename}`;
     } else if (body.imageUrl) {
       imageUrl = body.imageUrl;
     }

@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { sequelize } = require('./models');
+const seedData = require('./seed');
+const { sequelize, Doctor } = require('./models');
 
 const app = express();
 app.use(cors());
@@ -25,10 +26,10 @@ const PORT = process.env.PORT || 5000;
 sequelize.sync({ alter: true }).then(async () => {
   console.log('✓ PostgreSQL connected & tables synced');
   try {
-    const docCount = await sequelize.models.Doctor.count();
-    if (docCount < 2) {
+    const docCount = await Doctor.count();
+    if (docCount < 8) {
       console.log('ℹ Bootstrapping mock data for demonstration...');
-      require('./seed');
+      await seedData();
     }
   } catch (seedErr) {
     console.error('Seed check warning:', seedErr.message);

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Plus, Trash2, Calendar, CheckCircle, XCircle, Eye, EyeOff, UserPlus, X } from "lucide-react";
 import { doctorDetailStyles as s } from "../../assets/dummyStyles";
+import { API_BASE } from "../../apiConfig";
 
 function timeStringToMinutes(t) {
   if (!t) return 0;
@@ -25,10 +26,6 @@ function formatDateISO(iso) {
 }
 
 export default function AddPage() {
-  const API_BASE = (import.meta.env.VITE_API_URL !== undefined && import.meta.env.VITE_API_URL !== "")
-    ? import.meta.env.VITE_API_URL
-    : (window.location.port === "5174" ? "http://localhost:5000" : "");
-
   const [doctorList, setDoctorList] = useState([]);
   const fileInputRef = useRef(null);
 

@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Lock, Mail } from "lucide-react";
 import { toast } from "react-toastify";
 import { loginPageStyles, toastStyles } from "../../assets/dummyStyles";
+import { API_BASE } from "../../apiConfig";
 
 const STORAGE_KEY = "doctorToken_v1";
 
@@ -11,7 +12,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const navigate = useNavigate();
-  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   const handleLogin = async (e) => {
     e.preventDefault();

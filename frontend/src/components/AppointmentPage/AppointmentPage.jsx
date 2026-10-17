@@ -16,13 +16,13 @@ import {
   badgeStyles,
   iconSize,
 } from "../../assets/dummyStyles";
+import { API_BASE } from "../../apiConfig";
 
 function pad(n) {
   return String(n ?? 0).padStart(2, "0");
 }
 
 export default function AppointmentPage() {
-  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
   const [activeTab, setActiveTab] = useState("doctors");
   const [doctorAppts, setDoctorAppts] = useState([]);
   const [serviceAppts, setServiceAppts] = useState([]);

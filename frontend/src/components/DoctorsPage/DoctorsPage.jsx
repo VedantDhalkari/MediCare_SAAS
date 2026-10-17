@@ -2,9 +2,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Search, Star, MapPin, Calendar, Stethoscope, ChevronRight } from "lucide-react";
 import { doctorsPageStyles } from "../../assets/dummyStyles";
+import { API_BASE } from "../../apiConfig";
 
 export default function DoctorsPage() {
-  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
   const [allDoctors, setAllDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

@@ -14,6 +14,11 @@ echo "Rebuilding and restarting updated containers..."
 sudo docker compose build --no-cache
 sudo docker compose up -d --remove-orphans
 
+# 3. Seed mock doctors, services, and appointment history
+echo "Ensuring all mock doctors, diagnostic services, and appointments are seeded in PostgreSQL..."
+sleep 3
+sudo docker compose exec -T backend node seed.js || true
+
 echo ""
 echo "=========================================================="
 echo " ✓ MediCare SAAS Updated & Running! "

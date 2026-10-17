@@ -11,8 +11,9 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
 import toast, { Toaster } from "react-hot-toast";
 import { serviceDetailStyles, iconSize } from "../../assets/dummyStyles";
+import { API_BASE } from "../../apiConfig";
 
-const DEFAULT_HOST = "http://localhost:4000".replace(/\/$/, "");
+const DEFAULT_HOST = API_BASE;
 
 export default function ServiceDetail() {
   const { id } = useParams();

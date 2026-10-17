@@ -2,11 +2,11 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Calendar, Clock, CheckCircle, XCircle, Search, Phone, User } from "lucide-react";
 import { listPageStyles } from "../../assets/dummyStyles";
+import { API_BASE } from "../../apiConfig";
 
 export default function DoctorListPage() {
   const params = useParams();
   const doctorId = params.id;
-  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   const [appointments, setAppointments] = useState([]);
   const [search, setSearch] = useState("");

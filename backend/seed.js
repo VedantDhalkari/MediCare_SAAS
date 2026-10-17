@@ -6,7 +6,7 @@ async function seedData() {
     await sequelize.authenticate();
     console.log('✓ Connected to PostgreSQL for Seeding');
 
-    // 1. Seed Comprehensive Specialist Doctors
+    // 1. Seed Comprehensive Specialist Doctors (8 Real Specialists with Photos & Slots)
     const doctorsData = [
       {
         name: 'Dr. Rahul Sharma',
@@ -28,6 +28,7 @@ async function seedData() {
           '2026-10-21': ['10:00 AM', '11:30 AM', '03:00 PM', '04:30 PM'],
           '2026-10-22': ['09:30 AM', '11:00 AM', '02:00 PM'],
           '2026-10-23': ['10:00 AM', '01:00 PM', '03:30 PM'],
+          '2026-10-24': ['11:00 AM', '04:00 PM'],
         }
       },
       {
@@ -49,6 +50,7 @@ async function seedData() {
           '2026-10-20': ['11:00 AM', '12:30 PM', '04:00 PM'],
           '2026-10-21': ['09:00 AM', '10:30 AM', '02:00 PM'],
           '2026-10-22': ['10:30 AM', '01:30 PM', '05:00 PM'],
+          '2026-10-25': ['10:00 AM', '03:00 PM'],
         }
       },
       {
@@ -113,6 +115,69 @@ async function seedData() {
           '2026-10-21': ['10:30 AM', '01:00 PM', '04:30 PM'],
           '2026-10-22': ['09:00 AM', '12:00 PM'],
         }
+      },
+      {
+        name: 'Dr. Arvind Swaminathan',
+        email: 'dr.arvind@medicare.com',
+        password: 'Password123!',
+        specialization: 'Oncologist',
+        experience: '16 years',
+        qualifications: 'MBBS, MD (Medicine), DM (Medical Oncology)',
+        location: 'Tata Memorial Cancer Centre, Chennai',
+        about: 'Eminent medical oncologist dedicated to immunotherapy, precision oncology, targeted therapies, and hematological malignancies.',
+        fee: 1000,
+        availability: 'Available',
+        success: '95%',
+        patients: '9,800+',
+        rating: 4.9,
+        imageUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=600',
+        schedule: {
+          '2026-10-20': ['11:00 AM', '02:00 PM'],
+          '2026-10-22': ['10:00 AM', '01:30 PM', '04:00 PM'],
+          '2026-10-23': ['09:30 AM', '12:00 PM'],
+        }
+      },
+      {
+        name: 'Dr. Meenakshi Sundaram',
+        email: 'dr.meenakshi@medicare.com',
+        password: 'Password123!',
+        specialization: 'Gynecologist',
+        experience: '13 years',
+        qualifications: 'MBBS, MS (Obstetrics & Gynecology), FICOG',
+        location: 'Cloudnine Hospital, Gurgaon',
+        about: 'Senior obstetrician and high-risk pregnancy specialist proficient in laparoscopic gynecology, fertility preservation, and fetal medicine.',
+        fee: 700,
+        availability: 'Available',
+        success: '99%',
+        patients: '14,300+',
+        rating: 4.8,
+        imageUrl: 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&q=80&w=600',
+        schedule: {
+          '2026-10-21': ['10:00 AM', '11:30 AM', '02:30 PM'],
+          '2026-10-22': ['09:30 AM', '01:00 PM'],
+          '2026-10-24': ['10:30 AM', '03:00 PM'],
+        }
+      },
+      {
+        name: 'Dr. Vikramaditya Rathore',
+        email: 'dr.vikram@medicare.com',
+        password: 'Password123!',
+        specialization: 'General Physician',
+        experience: '11 years',
+        qualifications: 'MBBS, MD (General Medicine)',
+        location: 'Medanta The Medicity, Delhi NCR',
+        about: 'Primary care clinician focused on holistic family medicine, lifestyle disease reversal, infectious disease treatments, and adult wellness.',
+        fee: 500,
+        availability: 'Available',
+        success: '98%',
+        patients: '16,700+',
+        rating: 4.9,
+        imageUrl: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&q=80&w=600',
+        schedule: {
+          '2026-10-20': ['09:00 AM', '10:00 AM', '11:00 AM', '04:00 PM'],
+          '2026-10-21': ['09:30 AM', '12:00 PM', '03:30 PM'],
+          '2026-10-23': ['10:00 AM', '02:00 PM'],
+        }
       }
     ];
 
@@ -129,11 +194,11 @@ async function seedData() {
       seededDoctors.push(doc);
     }
 
-    // 2. Seed Diagnostic & Health Services
+    // 2. Seed Diagnostic & Health Packages
     const servicesData = [
       {
         name: 'Full Body Comprehensive Health Checkup',
-        about: 'Comprehensive 72-parameter diagnostic panel including complete hemogram, lipid profile, liver function, renal panel, HbA1c, and ECG.',
+        about: 'Comprehensive 72-parameter diagnostic panel including complete hemogram, lipid profile, liver function, renal panel, HbA1c, thyroid screen, and ECG.',
         shortDescription: '72 vital parameters + Doctor consultation report',
         price: 1499,
         available: true,
@@ -152,7 +217,7 @@ async function seedData() {
       },
       {
         name: 'Advanced Cardiac Health Package',
-        about: 'Specialized non-invasive cardiac evaluation including 2D Echocardiography, TMT (Treadmill Stress Test), lipid fractionation, and troponin markers.',
+        about: 'Specialized non-invasive cardiac evaluation including 2D Echocardiography, TMT (Treadmill Stress Test), lipid fractionation, and cardiac enzymes.',
         shortDescription: '2D Echo + TMT + Cardiac Enzymes + Cardiologist Review',
         price: 2499,
         available: true,
@@ -182,6 +247,39 @@ async function seedData() {
         instructions: [
           'Fasting blood sample required first, followed by breakfast sample after exactly 2 hours.'
         ]
+      },
+      {
+        name: 'Women Wellness & Hormone Balance Profile',
+        about: 'Targeted assessment for women including complete thyroid panel (T3, T4, TSH), Vitamin D3, Vitamin B12, Calcium, and Iron deficiency profile.',
+        shortDescription: 'Thyroid Panel + Vit D3/B12 + CBC + Gynecologist Review',
+        price: 1199,
+        available: true,
+        imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=600',
+        dates: ['2026-10-20', '2026-10-21', '2026-10-24'],
+        slots: {
+          '2026-10-20': ['08:00 AM', '09:30 AM', '11:00 AM'],
+          '2026-10-21': ['08:30 AM', '10:00 AM'],
+        },
+        instructions: [
+          'Overnight fasting of 8-10 hours is recommended for accurate metabolic parameters.'
+        ]
+      },
+      {
+        name: 'Senior Citizen Geriatric Care Panel',
+        about: 'Comprehensive health assessment designed for seniors: bone mineral density, arthritis markers, liver/kidney functions, cardiac markers, and prostate (PSA) or mammogram.',
+        shortDescription: 'Senior Comprehensive 65+ Vital Health Screening',
+        price: 1899,
+        available: true,
+        imageUrl: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=600',
+        dates: ['2026-10-21', '2026-10-22', '2026-10-25'],
+        slots: {
+          '2026-10-21': ['08:00 AM', '09:00 AM', '10:30 AM'],
+          '2026-10-22': ['08:30 AM', '11:00 AM'],
+        },
+        instructions: [
+          'Accompaniment by an attendant recommended for seniors requiring assistance.',
+          'Bring ongoing prescriptions.'
+        ]
       }
     ];
 
@@ -198,7 +296,7 @@ async function seedData() {
       seededServices.push(svc);
     }
 
-    // 3. Seed Realistic Historical & Upcoming Patient Appointments
+    // 3. Seed Realistic Historical & Upcoming Patient Appointments (10 Real Patients)
     const appointmentsData = [
       {
         patientName: 'Aarav Patel',
@@ -213,7 +311,7 @@ async function seedData() {
         fees: seededDoctors[0].fee,
         status: 'Completed',
         payment: { method: 'Online', status: 'Paid', amount: seededDoctors[0].fee },
-        notes: 'Annual cardiac health consultation. BP stable at 120/80.',
+        notes: 'Annual cardiac consultation. Blood pressure normal at 120/80 mmHg.',
       },
       {
         patientName: 'Meera Iyer',
@@ -228,7 +326,7 @@ async function seedData() {
         fees: seededDoctors[2].fee,
         status: 'Completed',
         payment: { method: 'Cash', status: 'Paid', amount: seededDoctors[2].fee },
-        notes: 'Skin allergy and mild dermatitis. Prescribed topical emollients.',
+        notes: 'Consultation for allergic contact dermatitis. Topicals prescribed.',
       },
       {
         patientName: 'Vikram Sengupta',
@@ -243,7 +341,7 @@ async function seedData() {
         fees: seededDoctors[3].fee,
         status: 'Confirmed',
         payment: { method: 'Online', status: 'Paid', amount: seededDoctors[3].fee },
-        notes: 'Follow-up for right knee arthroscopy rehabilitation.',
+        notes: 'Follow-up for knee arthroscopy rehabilitation exercises.',
       },
       {
         patientName: 'Kavita Deshmukh',
@@ -258,7 +356,7 @@ async function seedData() {
         fees: seededDoctors[1].fee,
         status: 'Pending',
         payment: { method: 'Cash', status: 'Pending', amount: seededDoctors[1].fee },
-        notes: 'Recurring migraine headaches for 3 weeks.',
+        notes: 'Experiencing recurrent migraine headaches for past 3 weeks.',
       },
       {
         patientName: 'Rohan Mehra',
@@ -273,7 +371,7 @@ async function seedData() {
         fees: seededDoctors[4].fee,
         status: 'Confirmed',
         payment: { method: 'Online', status: 'Paid', amount: seededDoctors[4].fee },
-        notes: 'Pediatric immunization booster doses.',
+        notes: 'Pediatric annual booster immunization and developmental check.',
       },
       {
         patientName: 'Sanjay Kapoor',
@@ -288,7 +386,67 @@ async function seedData() {
         fees: seededDoctors[0].fee,
         status: 'Canceled',
         payment: { method: 'Cash', status: 'Refunded', amount: 0 },
-        notes: 'Patient requested cancellation due to travel rescheduling.',
+        notes: 'Patient requested cancellation due to official travel.',
+      },
+      {
+        patientName: 'Anil Kulkarni',
+        mobile: '9811223344',
+        age: 61,
+        gender: 'Male',
+        doctorId: seededDoctors[5].id,
+        doctorName: seededDoctors[5].name,
+        speciality: seededDoctors[5].specialization,
+        date: '2026-10-22',
+        time: '10:00 AM',
+        fees: seededDoctors[5].fee,
+        status: 'Confirmed',
+        payment: { method: 'Online', status: 'Paid', amount: seededDoctors[5].fee },
+        notes: 'Quarterly oncology follow-up and PET scan review.',
+      },
+      {
+        patientName: 'Divya Nambiar',
+        mobile: '9899001122',
+        age: 31,
+        gender: 'Female',
+        doctorId: seededDoctors[6].id,
+        doctorName: seededDoctors[6].name,
+        speciality: seededDoctors[6].specialization,
+        date: '2026-10-21',
+        time: '10:00 AM',
+        fees: seededDoctors[6].fee,
+        status: 'Confirmed',
+        payment: { method: 'Online', status: 'Paid', amount: seededDoctors[6].fee },
+        notes: 'Second trimester routine ultrasound review and prenatal vitamins.',
+      },
+      {
+        patientName: 'Gaurav Bhatia',
+        mobile: '9911445566',
+        age: 44,
+        gender: 'Male',
+        doctorId: seededDoctors[7].id,
+        doctorName: seededDoctors[7].name,
+        speciality: seededDoctors[7].specialization,
+        date: '2026-10-20',
+        time: '09:00 AM',
+        fees: seededDoctors[7].fee,
+        status: 'Pending',
+        payment: { method: 'Cash', status: 'Pending', amount: seededDoctors[7].fee },
+        notes: 'Persistent fever and cough for 4 days.',
+      },
+      {
+        patientName: 'Shalini Gupta',
+        mobile: '9822334455',
+        age: 36,
+        gender: 'Female',
+        doctorId: seededDoctors[2].id,
+        doctorName: seededDoctors[2].name,
+        speciality: seededDoctors[2].specialization,
+        date: '2026-10-23',
+        time: '10:00 AM',
+        fees: seededDoctors[2].fee,
+        status: 'Confirmed',
+        payment: { method: 'Online', status: 'Paid', amount: seededDoctors[2].fee },
+        notes: 'Cosmetic consultation for pigmentation removal.',
       }
     ];
 
@@ -299,10 +457,12 @@ async function seedData() {
       if (!exists) {
         await Appointment.create(a);
         console.log(`+ Created Appointment: ${a.patientName} with ${a.doctorName} (${a.status})`);
+      } else {
+        await exists.update(a);
       }
     }
 
-    // 4. Seed Diagnostic Service Appointments
+    // 4. Seed Diagnostic Service Appointments (6 Real Customer Bookings)
     const serviceApptsData = [
       {
         patientName: 'Sunita Saxena',
@@ -318,7 +478,7 @@ async function seedData() {
         fees: seededServices[0].price,
         status: 'Completed',
         payment: { method: 'Online', status: 'Paid', amount: seededServices[0].price },
-        notes: 'Annual executive master checkup. Reports issued.',
+        notes: 'Annual executive checkup completed. Digital lab reports sent.',
       },
       {
         patientName: 'Deepak Chopra',
@@ -334,7 +494,7 @@ async function seedData() {
         fees: seededServices[1].price,
         status: 'Confirmed',
         payment: { method: 'Online', status: 'Paid', amount: seededServices[1].price },
-        notes: 'Pre-surgery 2D Echo stress profile test.',
+        notes: 'Pre-procedure 2D Echocardiogram and stress test booked.',
       },
       {
         patientName: 'Harish Reddy',
@@ -350,7 +510,39 @@ async function seedData() {
         fees: seededServices[2].price,
         status: 'Pending',
         payment: { method: 'Cash', status: 'Pending', amount: seededServices[2].price },
-        notes: 'Quarterly fasting and HbA1c glucose monitor.',
+        notes: 'Quarterly fasting and HbA1c diabetic profile monitoring.',
+      },
+      {
+        patientName: 'Pooja Bhatt',
+        mobile: '9833221100',
+        age: 33,
+        gender: 'Female',
+        serviceId: seededServices[3].id,
+        serviceName: seededServices[3].name,
+        date: '2026-10-20',
+        hour: 8,
+        minute: 0,
+        ampm: 'AM',
+        fees: seededServices[3].price,
+        status: 'Confirmed',
+        payment: { method: 'Online', status: 'Paid', amount: seededServices[3].price },
+        notes: 'Hormonal and comprehensive thyroid screen booked.',
+      },
+      {
+        patientName: 'Rameshwar Lal',
+        mobile: '9766554433',
+        age: 69,
+        gender: 'Male',
+        serviceId: seededServices[4].id,
+        serviceName: seededServices[4].name,
+        date: '2026-10-21',
+        hour: 8,
+        minute: 30,
+        ampm: 'AM',
+        fees: seededServices[4].price,
+        status: 'Confirmed',
+        payment: { method: 'Online', status: 'Paid', amount: seededServices[4].price },
+        notes: 'Senior citizen bone density and cardiac health screen.',
       }
     ];
 
@@ -361,17 +553,25 @@ async function seedData() {
       if (!exists) {
         await ServiceAppointment.create(sa);
         console.log(`+ Created Service Appointment: ${sa.patientName} for ${sa.serviceName} (${sa.status})`);
+      } else {
+        await exists.update(sa);
       }
     }
 
     console.log('====================================================');
     console.log('✓ ALL MOCK & EXAMPLE DATA SEEDED TO POSTGRESQL');
     console.log('====================================================');
-    process.exit(0);
+    return true;
   } catch (err) {
     console.error('✗ Seeding error:', err);
-    process.exit(1);
+    throw err;
   }
 }
 
-seedData();
+module.exports = seedData;
+
+if (require.main === module) {
+  seedData()
+    .then(() => process.exit(0))
+    .catch(() => process.exit(1));
+}

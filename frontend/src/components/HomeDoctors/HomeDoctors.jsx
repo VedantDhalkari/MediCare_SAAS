@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { homeDoctorsStyles } from "../../assets/dummyStyles";
+import { API_BASE } from "../../apiConfig";
 
 export default function HomeDoctors({ previewCount = 8 }) {
-  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

@@ -14,6 +14,7 @@ import {
   BadgeIndianRupee,
 } from "lucide-react";
 import { doctorListStyles } from "../../assets/dummyStyles";
+import { API_BASE } from "../../apiConfig";
 
 function formatDateISO(iso) {
   if (!iso || typeof iso !== "string") return iso;
@@ -74,8 +75,6 @@ function getSortedScheduleDates(scheduleLike) {
 }
 
 export default function ListPage() {
-  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
   const [doctors, setDoctors] = useState([]);
   const [expanded, setExpanded] = useState(null);
   const [query, setQuery] = useState("");

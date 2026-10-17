@@ -9,11 +9,12 @@ import {
   AlertCircle,
   Info,
   X,
+  Calendar,
 } from "lucide-react";
 import { addServiceStyles } from "../../assets/dummyStyles";
+import { API_BASE } from "../../apiConfig";
 
 export default function AddService({ serviceId = null }) {
-  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
  const fileRef = useRef(null);
   const [imagePreview, setImagePreview] = useState(null);

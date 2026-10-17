@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronsRight, MousePointer2Off, Activity } from "lucide-react";
 import { serviceCardStyles, servicePageStyles } from "../../assets/dummyStyles";
+import { API_BASE } from "../../apiConfig";
 
 const PlaceholderImg = "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=400&q=80";
 
@@ -51,7 +52,6 @@ const ServiceCard = ({ service }) => {
 };
 
 export default function ServicePage({ previewCount = 50 }) {
-  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
