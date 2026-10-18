@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Poster - Cloud-Based Hospital Appointment System (G55)</title>
+  <title>Project Poster - Cloud-Based Hospital Appointment System (Group G55)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #0284c7;
       --primary-dark: #0369a1;
-      --primary-navy: #0f172a;
+      --primary-navy: #091322;
       --accent-teal: #0d9488;
       --accent-cyan: #06b6d4;
       --accent-emerald: #10b981;
@@ -20,9 +20,8 @@
       --text-dark: #0f172a;
       --text-muted: #475569;
       --border-light: #e2e8f0;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-      --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
-      --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.1);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 10px rgba(15, 23, 42, 0.05);
     }
 
     * {
@@ -33,9 +32,9 @@
 
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background: #0f172a;
+      background: #091322;
       color: var(--text-dark);
-      padding: 24px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -43,20 +42,20 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Floating control bar for user */
+    /* Floating control bar */
     .toolbar {
       position: sticky;
-      top: 12px;
+      top: 10px;
       z-index: 1000;
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(15, 23, 42, 0.95);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 8px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 8px 20px;
       border-radius: 9999px;
       display: flex;
-      gap: 12px;
+      gap: 16px;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     }
 
@@ -64,7 +63,7 @@
       background: linear-gradient(135deg, #0284c7, #0d9488);
       color: #fff;
       border: none;
-      padding: 8px 18px;
+      padding: 7px 18px;
       font-size: 13px;
       font-weight: 600;
       border-radius: 9999px;
@@ -83,19 +82,18 @@
 
     .toolbar .badge-status {
       color: #38bdf8;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
-      letter-spacing: 0.5px;
     }
 
-    /* Main Poster Canvas */
+    /* Main Poster Canvas - Exactly formatted for 1-page A3 landscape */
     .poster-canvas {
-      width: 1400px;
+      width: 1440px;
       max-width: 100%;
-      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-      border-radius: 20px;
+      background: #f8fafc;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.2);
       display: flex;
       flex-direction: column;
@@ -104,29 +102,46 @@
 
     /* Header Section */
     .poster-header {
-      background: linear-gradient(135deg, #0f172a 0%, #03456b 50%, #065f46 100%);
+      background: linear-gradient(135deg, #081b2e 0%, #033f62 45%, #044e45 100%);
       color: #ffffff;
-      padding: 32px 40px;
+      padding: 18px 32px;
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      gap: 30px;
-      position: relative;
-      border-bottom: 5px solid var(--accent-cyan);
+      gap: 22px;
+      border-bottom: 4px solid var(--accent-cyan);
+    }
+
+    .college-logo-card {
+      background: #ffffff;
+      padding: 8px 14px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      height: 72px;
+    }
+
+    .college-logo-card img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
     }
 
     .header-branding {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 3px;
     }
 
     .university-tag {
       font-family: 'Outfit', sans-serif;
       text-transform: uppercase;
-      font-size: 13px;
+      font-size: 11.5px;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       color: #38bdf8;
       display: flex;
       align-items: center;
@@ -136,15 +151,15 @@
     .university-tag::before {
       content: '';
       display: inline-block;
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       background: #38bdf8;
       border-radius: 50%;
     }
 
     .project-title {
       font-family: 'Outfit', sans-serif;
-      font-size: 38px;
+      font-size: 31px;
       font-weight: 900;
       line-height: 1.15;
       letter-spacing: -0.5px;
@@ -154,7 +169,7 @@
     }
 
     .project-subtitle {
-      font-size: 15px;
+      font-size: 12.5px;
       color: #cbd5e1;
       font-weight: 500;
     }
@@ -163,19 +178,19 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 12px;
+      gap: 8px;
     }
 
     .group-badge {
       background: rgba(255, 255, 255, 0.12);
       border: 1.5px solid rgba(56, 189, 248, 0.5);
-      padding: 8px 20px;
-      border-radius: 12px;
+      padding: 5px 16px;
+      border-radius: 8px;
       text-align: right;
     }
 
     .group-badge .label {
-      font-size: 11px;
+      font-size: 9.5px;
       text-transform: uppercase;
       color: #94a3b8;
       font-weight: 600;
@@ -184,7 +199,7 @@
 
     .group-badge .group-id {
       font-family: 'Outfit', sans-serif;
-      font-size: 26px;
+      font-size: 22px;
       font-weight: 800;
       color: #38bdf8;
       line-height: 1;
@@ -193,20 +208,20 @@
     .guide-box {
       background: rgba(16, 185, 129, 0.15);
       border: 1px solid rgba(16, 185, 129, 0.4);
-      padding: 8px 16px;
-      border-radius: 10px;
+      padding: 5px 14px;
+      border-radius: 8px;
       text-align: right;
     }
 
     .guide-box .guide-label {
-      font-size: 11px;
+      font-size: 9.5px;
       text-transform: uppercase;
       color: #6ee7b7;
       font-weight: 600;
     }
 
     .guide-box .guide-name {
-      font-size: 15px;
+      font-size: 13.5px;
       font-weight: 700;
       color: #ffffff;
     }
@@ -215,20 +230,18 @@
     .students-strip {
       background: #ffffff;
       border-bottom: 1px solid var(--border-light);
-      padding: 16px 40px;
+      padding: 10px 32px;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 16px;
-      box-shadow: var(--shadow-sm);
+      gap: 12px;
     }
 
     .student-card {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-left: 4px solid var(--primary);
-      padding: 10px 14px;
-      border-radius: 10px;
-      transition: all 0.2s;
+      padding: 6px 10px;
+      border-radius: 6px;
     }
 
     .student-card:nth-child(2) { border-left-color: var(--accent-teal); }
@@ -237,7 +250,7 @@
     .student-card:nth-child(5) { border-left-color: #ec4899; }
 
     .student-name {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 700;
       color: #0f172a;
       white-space: nowrap;
@@ -246,9 +259,9 @@
     }
 
     .student-meta {
-      font-size: 11px;
+      font-size: 9.8px;
       color: #64748b;
-      margin-top: 3px;
+      margin-top: 1px;
       display: flex;
       flex-direction: column;
       gap: 1px;
@@ -258,29 +271,29 @@
       color: #334155;
     }
 
-    /* Main Poster Body Grid */
+    /* Main Poster Body Grid - Exactly 3 balanced columns filling the sheet */
     .poster-body {
-      padding: 30px 40px;
+      padding: 14px 32px;
       display: grid;
-      grid-template-columns: 1fr 1.35fr 1fr;
-      gap: 28px;
+      grid-template-columns: 1fr 1.15fr 1.25fr;
+      gap: 16px;
       flex: 1;
+      align-items: stretch;
     }
 
     .poster-column {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 12px;
     }
 
     /* Content Cards */
     .section-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 22px;
-      box-shadow: var(--shadow-md);
-      position: relative;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
     }
 
     .section-card.highlight {
@@ -290,34 +303,33 @@
 
     .card-title {
       font-family: 'Outfit', sans-serif;
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 800;
       color: var(--primary-dark);
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
+      gap: 7px;
+      margin-bottom: 8px;
+      padding-bottom: 5px;
       border-bottom: 2px solid #f1f5f9;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.2px;
     }
 
     .card-title .icon-pill {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
       background: linear-gradient(135deg, var(--primary), var(--accent-teal));
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      font-size: 11px;
     }
 
-    /* Typography & Lists inside cards */
     .text-body {
-      font-size: 12.5px;
-      line-height: 1.6;
+      font-size: 10.8px;
+      line-height: 1.45;
       color: #334155;
     }
 
@@ -325,63 +337,61 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
     }
 
     .feature-list li {
-      font-size: 12.5px;
-      line-height: 1.5;
+      font-size: 10.8px;
+      line-height: 1.4;
       color: #334155;
       display: flex;
       align-items: flex-start;
-      gap: 10px;
+      gap: 6px;
     }
 
     .feature-list li::before {
-      content: '✔';
+      content: '✓';
       font-weight: 800;
       color: var(--accent-teal);
       background: #ccfbf1;
-      width: 18px;
-      height: 18px;
+      width: 15px;
+      height: 15px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
+      font-size: 9px;
       flex-shrink: 0;
       margin-top: 1px;
     }
 
-    /* Architecture Diagram (SVG / Flow) */
+    /* Architecture Diagram */
     .arch-diagram {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
     }
 
     .arch-flow-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 6px;
       align-items: center;
     }
 
     .arch-node {
       background: #ffffff;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 12px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 6px 4px;
       text-align: center;
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 2px;
     }
 
     .arch-node.client { border-color: #38bdf8; background: #f0f9ff; }
@@ -390,46 +400,44 @@
     .arch-node.database { border-color: #f59e0b; background: #fffbeb; }
 
     .arch-node .node-icon {
-      font-size: 20px;
-      margin-bottom: 2px;
+      font-size: 14px;
     }
 
     .arch-node .node-title {
-      font-size: 11.5px;
+      font-size: 10px;
       font-weight: 700;
       color: #0f172a;
     }
 
     .arch-node .node-desc {
-      font-size: 9.5px;
+      font-size: 8.5px;
       color: #64748b;
-      line-height: 1.3;
+      line-height: 1.2;
     }
 
     /* Technology Grid */
     .tech-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 4px;
+      gap: 6px;
     }
 
     .tech-pill {
-      background: #f1f5f9;
+      background: #f8fafc;
       border: 1px solid #e2e8f0;
-      padding: 8px 10px;
-      border-radius: 8px;
+      padding: 5px 6px;
+      border-radius: 5px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 11.5px;
+      gap: 5px;
+      font-size: 10px;
       font-weight: 600;
       color: #1e293b;
     }
 
     .tech-pill .dot {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--primary);
       flex-shrink: 0;
@@ -442,47 +450,146 @@
     .tech-pill.node .dot { background: #16a34a; }
     .tech-pill.nginx .dot { background: #059669; }
 
-    /* Key Metrics / Highlights Strip */
+    /* Key Metrics */
     .metrics-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 10px;
+      gap: 6px;
+      margin-top: 6px;
     }
 
     .metric-box {
       background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
       border: 1px solid #a7f3d0;
-      padding: 10px;
-      border-radius: 10px;
+      padding: 6px;
+      border-radius: 6px;
       text-align: center;
     }
 
     .metric-value {
       font-family: 'Outfit', sans-serif;
-      font-size: 22px;
+      font-size: 16px;
       font-weight: 800;
       color: #047857;
       line-height: 1;
     }
 
     .metric-label {
-      font-size: 10px;
+      font-size: 8.5px;
       color: #065f46;
       font-weight: 600;
-      margin-top: 4px;
+      margin-top: 2px;
       text-transform: uppercase;
+    }
+
+    /* GitHub Repository Card */
+    .repo-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .repo-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .repo-tag {
+      font-size: 9px;
+      font-weight: 700;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .repo-url {
+      font-family: monospace;
+      font-size: 11px;
+      color: #f1f5f9;
+      font-weight: 600;
+      word-break: break-all;
+    }
+
+    .repo-badge {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #a7f3d0;
+      white-space: nowrap;
+    }
+
+    /* Screenshots Showcase Grid */
+    .screenshots-showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .shot-item {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    .shot-img-wrap {
+      width: 100%;
+      height: 105px;
+      background: #000000;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .shot-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    .shot-caption {
+      padding: 4px 8px;
+      font-size: 9px;
+      font-weight: 700;
+      color: #1e293b;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .shot-caption span.tag {
+      font-size: 8px;
+      color: #0284c7;
+      background: #e0f2fe;
+      padding: 1px 5px;
+      border-radius: 4px;
     }
 
     /* Poster Footer */
     .poster-footer {
-      background: #0f172a;
+      background: #091322;
       color: #94a3b8;
-      padding: 16px 40px;
+      padding: 10px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 11.5px;
+      font-size: 10.5px;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
@@ -493,34 +600,50 @@
     .demo-badge {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 4px 12px;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 3px 12px;
       border-radius: 9999px;
       color: #38bdf8;
       font-weight: 600;
     }
 
-    /* Print Styles for PDF / Plotter / Paper */
+    /* Strict 1-Page PDF Print Settings */
+    @page {
+      size: A3 landscape;
+      margin: 0;
+    }
+
     @media print {
-      body {
-        padding: 0;
-        background: #ffffff;
+      html, body {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+        overflow: hidden !important;
       }
       .toolbar {
         display: none !important;
       }
       .poster-canvas {
-        width: 100% !important;
+        width: 100vw !important;
+        height: 100vh !important;
         max-width: 100% !important;
         border-radius: 0 !important;
         border: none !important;
         box-shadow: none !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
-      @page {
-        size: A3 landscape;
-        margin: 0;
+      .poster-body {
+        padding: 10px 24px !important;
+        gap: 12px !important;
+      }
+      .section-card {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
     }
   </style>
@@ -538,8 +661,11 @@
   <!-- Poster Canvas -->
   <div class="poster-canvas" id="poster">
     
-    <!-- Header -->
+    <!-- Header with College Logo -->
     <header class="poster-header">
+      <div class="college-logo-card">
+        <img src="vu_logo.png" alt="Vishwakarma University Logo">
+      </div>
       <div class="header-branding">
         <div class="university-tag">Vishwakarma University, Pune • Department of Computer Engineering</div>
         <h1 class="project-title">Cloud-Based Hospital Appointment System</h1>
@@ -557,55 +683,50 @@
       </div>
     </header>
 
-    <!-- Student Information Strip (5 Members) -->
+    <!-- Student Information Strip (5 Members with exact PRN, Roll & Contact) -->
     <section class="students-strip">
       <div class="student-card">
         <div class="student-name">Zaid Nayeem Shaikh</div>
         <div class="student-meta">
-          <span><strong>Roll:</strong> 14 (Sr 45)</span>
+          <span><strong>Roll:</strong> 14 (Sr 45) • <strong>ID:</strong> 31240218</span>
           <span><strong>PRN:</strong> 3124045020031</span>
-          <span><strong>ID:</strong> 31240218</span>
-          <span>31240218@vupune.ac.in</span>
+          <span>31240218@vupune.ac.in • 7385451035</span>
         </div>
       </div>
 
       <div class="student-card">
         <div class="student-name">Om Sunil Vedpathak</div>
         <div class="student-meta">
-          <span><strong>Roll:</strong> 15 (Sr 46)</span>
+          <span><strong>Roll:</strong> 15 (Sr 46) • <strong>ID:</strong> 31240223</span>
           <span><strong>PRN:</strong> 3124045020033</span>
-          <span><strong>ID:</strong> 31240223</span>
-          <span>31240223@vupune.ac.in</span>
+          <span>31240223@vupune.ac.in • 9146392877</span>
         </div>
       </div>
 
       <div class="student-card">
         <div class="student-name">Harshad Jadhav</div>
         <div class="student-meta">
-          <span><strong>Roll:</strong> 32 (Sr 47)</span>
+          <span><strong>Roll:</strong> 32 (Sr 47) • <strong>ID:</strong> 31241317</span>
           <span><strong>PRN:</strong> 3124045010528</span>
-          <span><strong>ID:</strong> 31241317</span>
-          <span>31241317@vupune.ac.in</span>
+          <span>31241317@vupune.ac.in • 9307814641</span>
         </div>
       </div>
 
       <div class="student-card">
         <div class="student-name">Vedant Dhalkari</div>
         <div class="student-meta">
-          <span><strong>Roll:</strong> 54 (Sr 48)</span>
+          <span><strong>Roll:</strong> 54 (Sr 48) • <strong>ID:</strong> 31242589</span>
           <span><strong>PRN:</strong> 3124045020222</span>
-          <span><strong>ID:</strong> 31242589</span>
-          <span>31242589@vupune.ac.in</span>
+          <span>31242589@vupune.ac.in • 7972571540</span>
         </div>
       </div>
 
       <div class="student-card">
         <div class="student-name">Kedar Ajay Ghadage</div>
         <div class="student-meta">
-          <span><strong>Roll:</strong> 46 (Sr 49)</span>
+          <span><strong>Roll:</strong> 46 (Sr 49) • <strong>ID:</strong> 31242484</span>
           <span><strong>PRN:</strong> 3124045020203</span>
-          <span><strong>ID:</strong> 31242484</span>
-          <span>31242484@vupune.ac.in</span>
+          <span>31242484@vupune.ac.in • 8080926440</span>
         </div>
       </div>
     </section>
@@ -613,21 +734,21 @@
     <!-- Main Content 3-Column Layout -->
     <main class="poster-body">
 
-      <!-- Column 1: Problem & Objectives -->
+      <!-- Column 1: Problem, Objectives & Tech Stack -->
       <div class="poster-column">
         <!-- Problem Statement -->
         <div class="section-card">
           <h2 class="card-title">
             <span class="icon-pill">❗</span> Problem Statement
           </h2>
-          <p class="text-body" style="margin-bottom: 12px;">
-            Legacy healthcare scheduling mechanisms rely on uncoordinated phone bookings and paper registers, triggering critical operational bottlenecks:
+          <p class="text-body" style="margin-bottom: 6px;">
+            Legacy healthcare scheduling mechanisms rely on manual phone calls and paper registers, triggering critical operational bottlenecks:
           </p>
           <ul class="feature-list">
-            <li><strong>Excessive Wait Times:</strong> Long hospital queues resulting from unmanaged patient walk-ins and scheduling overlaps.</li>
-            <li><strong>Slot Collisions & Overbooking:</strong> Absence of real-time multi-channel doctor calendar synchronization.</li>
-            <li><strong>Diagnostic Inefficiencies:</strong> Patients arrive unprepared for specialized medical packages (e.g., fasting guidelines missed).</li>
-            <li><strong>Data Fragility & Scalability:</strong> Unstructured record storage prone to corruption, lacking ACID compliance and cloud elasticity.</li>
+            <li><strong>Excessive Wait Times:</strong> Unmanaged patient walk-ins cause heavy physical hospital congestion and delays.</li>
+            <li><strong>Slot Collisions & Overbooking:</strong> Absence of real-time synchronized doctor calendars across departments.</li>
+            <li><strong>Diagnostic Inefficiencies:</strong> Patients arrive unprepared for specialized medical packages (e.g., fasting missed).</li>
+            <li><strong>Data Fragility:</strong> Unstructured record storage prone to corruption, lacking ACID compliance and cloud resilience.</li>
           </ul>
         </div>
 
@@ -637,23 +758,44 @@
             <span class="icon-pill">🎯</span> Project Objectives
           </h2>
           <ul class="feature-list">
-            <li><strong>Unified Patient Portal:</strong> Deliver an interactive interface for exploring doctor credentials, fees, and instant slot reservations.</li>
-            <li><strong>Diagnostic Package Workflow:</strong> Streamline health test packages with mandatory patient instructions and automated time allocations.</li>
-            <li><strong>Executive Admin Dashboard:</strong> Empower clinical staff with real-time doctor availability management and revenue analytics.</li>
-            <li><strong>100% PostgreSQL ACID Architecture:</strong> Migrate from document stores to strict relational models (Sequelize ORM) with relational integrity.</li>
-            <li><strong>Cloud-Native EC2 Deployment:</strong> Implement multi-container Docker Compose with Nginx reverse proxying on AWS Free Tier.</li>
+            <li><strong>Unified Patient Portal:</strong> Interactive UI to explore doctor credentials, fees, and instant slot reservations.</li>
+            <li><strong>Diagnostic Package Workflow:</strong> Automated medical test scheduling with mandatory preparation instructions.</li>
+            <li><strong>Executive Admin Dashboard:</strong> Real-time doctor schedule control, appointment statuses, and analytics.</li>
+            <li><strong>100% PostgreSQL ACID Storage:</strong> Strict relational models (Sequelize ORM) with relational integrity.</li>
+            <li><strong>Cloud-Native EC2 Deployment:</strong> Multi-container Docker Compose with Nginx proxy on AWS Free Tier.</li>
           </ul>
+        </div>
+
+        <!-- Technologies Used -->
+        <div class="section-card">
+          <h2 class="card-title">
+            <span class="icon-pill">🛠️</span> Technologies Used
+          </h2>
+          <div class="tech-grid">
+            <div class="tech-pill aws"><span class="dot"></span> AWS EC2 Cloud</div>
+            <div class="tech-pill docker"><span class="dot"></span> Docker Engine</div>
+            <div class="tech-pill docker"><span class="dot"></span> Docker Compose</div>
+            <div class="tech-pill postgres"><span class="dot"></span> PostgreSQL 15</div>
+            <div class="tech-pill postgres"><span class="dot"></span> Sequelize ORM</div>
+            <div class="tech-pill nginx"><span class="dot"></span> Nginx Proxy</div>
+            <div class="tech-pill react"><span class="dot"></span> React 19</div>
+            <div class="tech-pill react"><span class="dot"></span> Vite 7</div>
+            <div class="tech-pill node"><span class="dot"></span> Node.js 20</div>
+            <div class="tech-pill node"><span class="dot"></span> Express API</div>
+            <div class="tech-pill react"><span class="dot"></span> Tailwind CSS</div>
+            <div class="tech-pill aws"><span class="dot"></span> Terraform (IaC)</div>
+          </div>
         </div>
       </div>
 
-      <!-- Column 2: System Architecture & Solution -->
+      <!-- Column 2: System Architecture & Proposed Solution -->
       <div class="poster-column">
         <!-- Proposed Solution -->
         <div class="section-card">
           <h2 class="card-title">
             <span class="icon-pill">💡</span> Proposed Solution (MediCare SAAS)
           </h2>
-          <p class="text-body" style="margin-bottom: 14px;">
+          <p class="text-body" style="margin-bottom: 8px;">
             A decoupled, cloud-orchestrated hospital scheduling ecosystem providing dedicated web interfaces for patients and hospital administrators backed by a high-throughput relational backend:
           </p>
           <div class="arch-diagram">
@@ -683,11 +825,11 @@
           <div class="metrics-row">
             <div class="metric-box">
               <div class="metric-value">&lt; 300ms</div>
-              <div class="metric-label">API Response Time</div>
+              <div class="metric-label">API Latency</div>
             </div>
             <div class="metric-box">
               <div class="metric-value">100% ACID</div>
-              <div class="metric-label">Relational Integrity</div>
+              <div class="metric-label">Data Integrity</div>
             </div>
             <div class="metric-box">
               <div class="metric-value">$0.00 / Mo</div>
@@ -696,54 +838,31 @@
           </div>
         </div>
 
-        <!-- System Architecture Deep-Dive -->
+        <!-- Architectural Highlights -->
         <div class="section-card">
           <h2 class="card-title">
-            <span class="icon-pill">🏛️</span> Architectural Design Highlights
+            <span class="icon-pill">🏛️</span> Architectural Highlights
           </h2>
           <ul class="feature-list">
             <li><strong>Dual-Portal Micro-Routing:</strong> Unified Nginx ingress routing public traffic on port 80 and hospital admin controls on port 8080.</li>
-            <li><strong>Automated Swap Virtualization:</strong> Configured 2GB swap space on AWS EC2 (t2.micro) ensuring smooth Vite asset builds without out-of-memory errors.</li>
+            <li><strong>Automated Swap Virtualization:</strong> Configured 2GB swap space on AWS EC2 (t2.micro) ensuring smooth Vite asset builds.</li>
             <li><strong>Dynamic API Fallback:</strong> Environment-aware API endpoint auto-detection eliminating cross-origin CORS faults.</li>
-            <li><strong>Relational Data Models:</strong> Strongly-typed tables for Doctors, Services, and Appointments with foreign-key constraints.</li>
+            <li><strong>Relational Data Models:</strong> Strongly-typed tables for Doctors, Services, and Appointments with foreign keys.</li>
           </ul>
         </div>
-      </div>
 
-      <!-- Column 3: Technologies & Implementation Results -->
-      <div class="poster-column">
-        <!-- Technologies Used -->
-        <div class="section-card">
-          <h2 class="card-title">
-            <span class="icon-pill">🛠️</span> Technologies Used
-          </h2>
-          <div class="tech-grid">
-            <div class="tech-pill aws"><span class="dot"></span> AWS EC2 Cloud</div>
-            <div class="tech-pill docker"><span class="dot"></span> Docker Engine</div>
-            <div class="tech-pill docker"><span class="dot"></span> Docker Compose</div>
-            <div class="tech-pill postgres"><span class="dot"></span> PostgreSQL 15</div>
-            <div class="tech-pill postgres"><span class="dot"></span> Sequelize ORM</div>
-            <div class="tech-pill nginx"><span class="dot"></span> Nginx Proxy</div>
-            <div class="tech-pill react"><span class="dot"></span> React 19</div>
-            <div class="tech-pill react"><span class="dot"></span> Vite 7</div>
-            <div class="tech-pill node"><span class="dot"></span> Node.js 20</div>
-            <div class="tech-pill node"><span class="dot"></span> Express REST API</div>
-            <div class="tech-pill react"><span class="dot"></span> Tailwind CSS</div>
-            <div class="tech-pill aws"><span class="dot"></span> Terraform (IaC)</div>
+        <!-- GitHub Repository Card -->
+        <div class="section-card highlight" style="padding: 10px 14px;">
+          <div class="card-title" style="margin-bottom: 6px; padding-bottom: 4px; font-size: 13px;">
+            <span class="icon-pill">🔗</span> Source Code & Git Version Control
           </div>
-        </div>
-
-        <!-- Key Outcomes & Verification -->
-        <div class="section-card highlight">
-          <h2 class="card-title">
-            <span class="icon-pill">📊</span> Results & Key Features
-          </h2>
-          <ul class="feature-list">
-            <li><strong>Live Specialist Directory:</strong> 8 pre-seeded medical specialties with bios, consultation fees, and future slots.</li>
-            <li><strong>Full Diagnostic Booking:</strong> Comprehensive full-body checkups and cardiac packages with preparation instructions.</li>
-            <li><strong>Administrative Analytics:</strong> Real-time dashboard showing appointment metrics (Completed, Confirmed, Pending, Canceled).</li>
-            <li><strong>Automated 1-Command Deployment:</strong> Shell-automated deployment script (`deploy.sh`) and instant git sync (`update.sh`).</li>
-          </ul>
+          <div class="repo-card">
+            <div class="repo-info">
+              <span class="repo-tag">Official GitHub Repository</span>
+              <span class="repo-url">https://github.com/VedantDhalkari/MediCare_SAAS.git</span>
+            </div>
+            <div class="repo-badge">Public • Branch: main</div>
+          </div>
         </div>
 
         <!-- Conclusion -->
@@ -752,8 +871,76 @@
             <span class="icon-pill">🏁</span> Conclusion
           </h2>
           <p class="text-body">
-            The <em>Cloud-Based Hospital Appointment System</em> successfully replaces legacy physical queues with a high-performance, containerized digital platform. Built with PostgreSQL and AWS, the system proves that enterprise-grade medical scheduling can be deployed securely and reliably at zero hosting cost.
+            The <em>Cloud-Based Hospital Appointment System</em> replaces physical queues with a containerized platform. Built with PostgreSQL and AWS, the system proves that enterprise-grade medical scheduling can be deployed securely and reliably at zero hosting cost.
           </p>
+        </div>
+      </div>
+
+      <!-- Column 3: Live System Screenshots & Operational Results -->
+      <div class="poster-column">
+        <!-- Live System Screenshots Showcase -->
+        <div class="section-card">
+          <h2 class="card-title">
+            <span class="icon-pill">📸</span> Live System Screenshots & Cloud Proof
+          </h2>
+          <div class="screenshots-showcase-grid">
+            <!-- Shot 1: Patient Portal -->
+            <div class="shot-item">
+              <div class="shot-img-wrap">
+                <img src="screenshots/Screenshot 2026-10-16 114317.png" alt="Patient Portal UI">
+              </div>
+              <div class="shot-caption">
+                <span>Patient Portal (Port 80)</span>
+                <span class="tag">React 19</span>
+              </div>
+            </div>
+
+            <!-- Shot 2: Admin Dashboard on AWS EC2 -->
+            <div class="shot-item">
+              <div class="shot-img-wrap">
+                <img src="screenshots/Screenshot 2026-10-17 163838.png" alt="Hospital Admin Dashboard">
+              </div>
+              <div class="shot-caption">
+                <span>Admin Dashboard (Port 8080)</span>
+                <span class="tag">PostgreSQL Active</span>
+              </div>
+            </div>
+
+            <!-- Shot 3: AWS EC2 Instance -->
+            <div class="shot-item">
+              <div class="shot-img-wrap">
+                <img src="screenshots/Screenshot 2026-10-17 151538.png" alt="AWS EC2 Deployment">
+              </div>
+              <div class="shot-caption">
+                <span>AWS EC2 Instance Launch</span>
+                <span class="tag">Free Tier</span>
+              </div>
+            </div>
+
+            <!-- Shot 4: Live PostgreSQL REST API -->
+            <div class="shot-item">
+              <div class="shot-img-wrap">
+                <img src="screenshots/Screenshot 2026-10-17 163848.png" alt="Live REST API Output">
+              </div>
+              <div class="shot-caption">
+                <span>Live REST API (/api/doctors)</span>
+                <span class="tag">PostgreSQL 15</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results & Key Features -->
+        <div class="section-card highlight">
+          <h2 class="card-title">
+            <span class="icon-pill">📊</span> Results & Key Outcomes
+          </h2>
+          <ul class="feature-list">
+            <li><strong>Live Specialist Directory:</strong> 8 pre-seeded medical specialties with bios, fees, and booking slots.</li>
+            <li><strong>Diagnostic Booking:</strong> Full-body checkups and cardiac packages with preparation instructions.</li>
+            <li><strong>Administrative Analytics:</strong> Real-time dashboard showing appointment metrics (Completed, Confirmed, Pending).</li>
+            <li><strong>Automated 1-Command Deployment:</strong> Shell-automated deployment script (`deploy.sh`) and instant git sync (`update.sh`).</li>
+          </ul>
         </div>
       </div>
 
@@ -765,7 +952,7 @@
         <strong>Vishwakarma University</strong> • Final Project Submission 2026 • Group <strong>G55</strong>
       </div>
       <div class="demo-badge">
-        <span>🚀 Live Cloud Deployment on AWS EC2 (Dockerized)</span>
+        <span>🚀 Live Cloud Deployment on AWS EC2 • https://github.com/VedantDhalkari/MediCare_SAAS.git</span>
       </div>
       <div>
         Guide: <strong>Prof. Suhas Chavan</strong>
